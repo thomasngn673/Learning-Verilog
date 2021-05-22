@@ -2,7 +2,7 @@
 
 [Summary of Types of Flip-flop Behavior](http://osp.mans.edu.eg/cs212/Seq_circuits_Summary_FF-types.htm)
 
-<br/>
+<br/> 
 
 * Structural: logic gates are expressed by complete spelling
 
