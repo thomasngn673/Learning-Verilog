@@ -15,7 +15,7 @@ iverilog -o file_tb.vvp file_tb.v
 4. Create waveform file of .vvp file by entering:
 
 ``` Bash
-vvp file.vvp
+vvp file_tb.vvp
 ```
 
 5. Allow GTKWave to run by changing *System Preferences* if not already changed.
