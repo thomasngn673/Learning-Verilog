@@ -11,14 +11,10 @@ module counter (
     counter_out // 4-bit vector output
 );
 
-input clock;
-input reset;
-input enable;
+input clock, reset, enable;
 output [3:0] counter_output;
 
-wire clock;
-wire reset;
-wire enable;
+wire clock, reset, enable;
 reg [3:0] counter_out;
 
 always @ (posedge clock)
