@@ -1,6 +1,6 @@
 # Verilog in One Day
 
-[Verilog in One Day](http://www.asic-world.com/verilog/verilog_one_day1.html#Introduction)
+## [Verilog in One Day](http://www.asic-world.com/verilog/verilog_one_day1.html#Introduction)
 
 ## Introduction
 
@@ -25,6 +25,8 @@
 4. RTL coding
 5. Verification
 6. Synthesis
+
+<br/>
 
 ## Modules
 
@@ -54,10 +56,14 @@ module arbiter (
     * Little Endian: [7:0], reads *right-to-left*
     * Big Endian: [0:7], reads *left-to-right*
 
+<br/>
+
 ## Data Types
 
 1. **reg**: stores and outputs a value
 2. **wire**: connects two points, gives an output
+
+<br/>
 
 ## Operators
 
@@ -66,6 +72,8 @@ module arbiter (
 * NOR: ~|
 * XOR: ^
 * XNOR: ~^
+
+<br/>
 
 ## Control Statements
 
@@ -85,11 +93,15 @@ module arbiter (
 * Repeat
   * *repeat (n)* with 'n' being the # of times the code is ran
 
+<br/>
+
 ## Variable Assignment
 
 * Combinational logic elements are modeled using *assign* and *always* statements.
 * Sequential logic elements are modeled using *always* statements.
 * Test benches use *initial* statements which only execute once.
+
+<br/>
 
 ## Always Blocks
 
@@ -114,6 +126,8 @@ module arbiter (
   * If (enable == 1), data &#8594; out
   * Else, data &#8594; high-Z
 
+<br/>
+
 ## Task and Function
 
 * Functions and tasks allow code to be repeated and reused.
@@ -124,5 +138,105 @@ module arbiter (
   * Tasks can have delays while functions can't. Therefore, combinational logic can use 'function'.
   * Functions can return a value, while tasks can't.
 
+<br/>
+
 ## Test Benches
 
+### Full Code for Arbiter
+
+1. Declare the module which lists all variables.
+
+``` Verilog
+module arbiter (
+    clock,
+    reset,
+    req_0,
+    req_1,
+    gnt_0,
+    gnt_1
+);
+```
+
+2. Define inputs and output regs.
+
+``` Verilog
+input clock, reset, req_0, req_1;
+output reg gnt_0, gnt_1;
+```
+
+3. Define *always* blocks with states defined by the state machine of the system.
+
+``` Verilog
+always @ (posedge clock or posedge reset)
+if (reset) begin
+  gnt_0 <= 0;
+  gnt_1 <= 0;
+end
+
+else if (req_0) begin
+  gnt_0 <= 1;
+  gnt_1 <= 0;
+end
+
+else if (req_1) begin
+  gnt_0 <= 0;
+  gnt_1 <= 1;
+end
+endmodule
+```
+
+4. Declare arbiter test bench module.
+
+``` Verilog
+module arbiter_tb;
+```
+
+5. Define test bench data types.
+
+``` Verilog
+reg clock, reset, req0, req1;
+wire gnt0, gnt1;
+```
+
+6. Define *initial* block to initialize all variables.
+
+``` Verilog
+initial begin
+  $monitor ("req0=%b, req1=%b, gnt0=%b, gnt1=%b", // %b: byte type
+            req0, req1, gnt0, gnt1); // monitor outputs
+  clock = 0;
+  reset = 0;
+  req0 = 0;
+  req1 = 0;
+  #5 reset = 1;
+  #15 reset = 0;
+  #10 req0 = 1;
+  #10 req0 = 0;
+  #10 req1 = 1;
+  #10 req1 = 0;
+  #10 {req0, req1} = 2'b11; // 2-bit number 11
+  #10 {req0, req1} = 2'b00; // 2-bit number 00
+  #10 $finish; // terminate simulation
+end
+```
+
+7. Generate the clock using an *always* block.
+
+``` Verilog
+always begin
+  #5 clock = !clock; // pulse the clock every 5 time units
+end
+```
+
+8. Link original variables with test bench variables.
+
+``` Verilog
+arbiter U0 (
+  .clock (clock),
+  .reset (reset),
+  .req_0 (req0),
+  .req_1 (req1),
+  .gnt_0 (gnt0),
+  .gnt_1 (gnt1)
+);
+```
