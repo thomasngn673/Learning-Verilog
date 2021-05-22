@@ -7,8 +7,10 @@
 3. Create .vvp file of test bench code by entering:
 
 ``` Bash
-iverilog -o file.vvp file_tb.v
+iverilog -o file_tb.vvp file_tb.v
 ```
+
+* Must include exact test bench file name when creating .vvp file
 
 4. Create waveform file of .vvp file by entering:
 

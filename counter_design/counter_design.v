@@ -4,15 +4,12 @@
     - Active high enable
 */
 
-module counter (
-    clock,
-    reset, // active high, synchronous reset INPUT
-    enable, // active high enable
-    counter_out // 4-bit vector output
+module counter(
+    input clock,
+    input reset, // active high, synchronous reset INPUT
+    input enable, // active high enable
+    output [3:0] counter_out // 4-bit vector output
 );
-
-input clock, reset, enable;
-output [3:0] counter_output;
 
 wire clock, reset, enable;
 reg [3:0] counter_out;
@@ -29,7 +26,7 @@ begin: counter
 
     // If ENABLE is active, increment the counter
     else if (enable == 1'b1) begin
-        counter_out <= #1 counter_out + 1
+        counter_out <= #1 counter_out + 1;
     end
 end
 endmodule
