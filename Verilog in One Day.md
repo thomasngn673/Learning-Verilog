@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Verilog Design Cycle
+**Verilog Design Cycle**
 
 1. Specifications
 2. High level design
@@ -13,7 +13,7 @@ Verilog Design Cycle
 5. Verification
 6. Synthesis
 
-Ex. Design Cycle of an Arbiter
+**Ex.** Design Cycle of an Arbiter
 
 1. Specifications: Identify the requirements of the design
     * 2 bit
@@ -48,31 +48,81 @@ module arbiter (
 ```
 
 * Bi-Directional Ports
-  * Ex. **inout**
+  * **Ex.** inout
 * Vector Signals
-  * Ex. **inout [7:0] address**
+  * **Ex.** inout [7:0] address
     * Little Endian: [7:0], reads *right-to-left*
     * Big Endian: [0:7], reads *left-to-right*
 
-## Data Type
+## Data Types
 
 1. **reg**: stores and outputs a value
 2. **wire**: connects two points, gives an output
 
 ## Operators
 
+* NAND: ~&
+* OR: |
+* NOR: ~|
+* XOR: ^
+* XNOR: ~^
 
 ## Control Statements
 
+* "begin" and "end" behave as { } in C
+* If-Else Statements
+  * **Ex.**
+    * Decimal: 10
+    * Hexadecimal: 16'hDEAD
+    * Binary: 1'b1
+* Case Statements
+  * Opens with "case"
+  * Closes with "endcase"
+* While Statements
+* For Loops
+  * ++ and -- are not supported in Verilog
+  * Incremental operators must be written out (i++ &#8594; i=i+1)
+* Repeat
+  * *repeat (n)* with 'n' being the # of times the code is ran
 
 ## Variable Assignment
 
+* Combinational logic elements are modeled using *assign* and *always* statements.
+* Sequential logic elements are modeled using *always* statements.
+* Test benches use *initial* statements which only execute once.
 
 ## Always Blocks
 
+* Always blocks will run simultaneously when one or more of the conditions listed is fulfilled.
+* Can't drive 'wire' data type, but can drive 'reg' and 'integer' data types
+* Must contain either:
+  1. Sensitive list: tells the block when to execute
+        * Level Sensitive
+            * **Ex.** always @ (a or b or sel)
+        * Edge Sensitive
+            * **Ex.** always @ (posedge clk)
+  2. Delay
+
+        ``` Verilog
+        always begin
+            #5 clk = ~clk; // #5 means 5 time units
+        end
+        ```
+
+* Assign Statement: modeling only combinational logic and executed continuously
+  * **Ex.** assign out = (enable) ? data : 1'bz
+  * If (enable == 1), data &#8594; out
+  * Else, data &#8594; high-Z
 
 ## Task and Function
 
+* Functions and tasks allow code to be repeated and reused.
+* Function is:
+  * Opened with 'function'
+  * Closed with 'endfunction'
+* Functions vs. Tasks
+  * Tasks can have delays while functions can't. Therefore, combinational logic can use 'function'.
+  * Functions can return a value, while tasks can't.
 
 ## Test Benches
 
