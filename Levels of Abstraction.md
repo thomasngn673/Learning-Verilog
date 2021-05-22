@@ -42,4 +42,3 @@ module half(s,c,a,b);
         c = a&b;
     end
 endmodule
-
