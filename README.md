@@ -1,2 +1,2 @@
 # Verilog
-Learning Verilog notes
+Verilog Notes and code
