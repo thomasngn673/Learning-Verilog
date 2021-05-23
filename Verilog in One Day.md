@@ -193,6 +193,9 @@ module arbiter_tb;
 
 5. Define test bench data types.
 
+* Inputs are 'reg'
+* Outputs are 'wire'
+
 ``` Verilog
 reg clock, reset, req0, req1;
 wire gnt0, gnt1;

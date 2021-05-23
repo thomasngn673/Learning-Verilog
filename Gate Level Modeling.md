@@ -63,4 +63,3 @@
 2. Medium capacitance: medium
 1. Small capacitance: small
 0. Hi Impedance: highz0, highz1
-
