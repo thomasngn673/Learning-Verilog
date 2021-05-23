@@ -94,3 +94,35 @@
 
 ## Hierarchical Identifiers
 
+* Based on top module identifer followed by module instant identifiers, separated by periods
+
+* **Ex.**
+
+  ``` Verilog
+  addbit u0 (r1[0], r2[0], ci, result[0], c1);
+  
+  // Hierarchical Identifiers
+  tb.U.u0.sum
+  // tb = test bench
+  // U = connection to lower module
+  // u0 = addbit u0
+
+## Data Types
+
+* Nets: represent structural connections between components
+  * **wire, tri**: connecting wires
+  * **wor, trior**: wired outputs OR'd together
+  * **wand, triand**: wired outputs AND'd together
+  * **tri0, tri1**: net pulls-down, pulls-up when not driven
+  * **supply0, supply1**: net has constant 0 or logic 1
+  * **trireg**: retains last value when driven to z (tristate)
+* Registers: represent variables used to store data
+  * **reg**: unsigned variable
+  * **integer**: signed variable - 32 bits
+  * **time**: unsigned integer - 64 bits
+  * **real**: double precision floating point variable
+* Signal Data Type Declarations
+  1. Explicitly declared
+  2. Implicitly declared
+* Strings
+  * **Syntax**: `$display("%s", string)`
